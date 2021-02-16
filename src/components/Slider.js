@@ -8,16 +8,16 @@ const handleStyle = {
   MozUserSelect: "none",
   KhtmlUserSelect: "none",
   WebkitUserSelect: "none",
-  OUserSelect: "none"
+  OUserSelect: "none",
 };
 
 // Map keycodes to positive or negative values
-export const mapToKeyCode = code => {
+export const mapToKeyCode = (code) => {
   const codes = {
     37: -1,
     38: 1,
     39: 1,
-    40: -1
+    40: -1,
   };
   return codes[code] || null;
 };
@@ -25,16 +25,19 @@ export const mapToKeyCode = code => {
 class Slider extends Component {
   componentDidMount() {
     window.addEventListener("mouseup", this.dragEnd, false);
+    window.addEventListener("touchend", this.dragEnd, false);
   }
 
   componentWillUnmount() {
     window.removeEventListener("mouseup", this.dragEnd, false);
+    window.removeEventListener("touchend", this.dragEnd, false);
   }
 
   constructor() {
     super();
     this.state = {
-      dragging: false
+      dragging: false,
+      dragStartX: null,
     };
   }
 
@@ -44,7 +47,8 @@ class Slider extends Component {
       this.setState(
         {
           dragging: true,
-          dragIndex: index
+          dragIndex: index,
+          dragStartX: e.nativeEvent.offsetX,
         },
         () => {
           this.props.dragChange(true);
@@ -53,12 +57,13 @@ class Slider extends Component {
     }
   };
 
-  dragEnd = e => {
+  dragEnd = (e) => {
     e.stopPropagation();
     this.setState(
       {
         dragging: false,
-        dragIndex: null
+        dragIndex: null,
+        dragStartX: null,
       },
       () => {
         this.props.dragChange(false);
@@ -66,7 +71,7 @@ class Slider extends Component {
     );
   };
 
-  dragFromSVG = e => {
+  dragFromSVG = (e) => {
     if (!this.state.dragging) {
       let selection = [...this.props.selection];
       let selected = this.props.scale.invert(e.nativeEvent.offsetX);
@@ -86,7 +91,7 @@ class Slider extends Component {
       this.setState(
         {
           dragging: true,
-          dragIndex
+          dragIndex,
         },
         () => {
           this.props.dragChange(true);
@@ -95,7 +100,7 @@ class Slider extends Component {
     }
   };
 
-  mouseMove = e => {
+  mouseMove = (e) => {
     if (this.state.dragging) {
       let selection = [...this.props.selection];
       selection[this.state.dragIndex] = this.props.scale.invert(
@@ -117,17 +122,15 @@ class Slider extends Component {
     const {
       selection,
       scale,
-      format,
       handleLabelFormat,
       formatLabelFunction,
       width,
       height,
       reset,
-      innerWidth,
       selectedColor,
       unselectedColor,
       sliderStyle,
-      showLabels
+      showLabels,
     } = this.props;
     const selectionWidth = Math.abs(scale(selection[1]) - scale(selection[0]));
     const selectionSorted = Array.from(selection).sort((a, b) => +a - +b);
@@ -135,12 +138,11 @@ class Slider extends Component {
     const f = formatLabelFunction || defaultLabelFormatFunction;
     return (
       <svg
-        style={sliderStyle}
+        style={{ ...sliderStyle, touchAction: "none" }}
         height={height}
         width={width}
-        onMouseDown={this.dragFromSVG}
         onDoubleClick={reset}
-        onMouseMove={this.mouseMove}
+        onPointerMove={this.mouseMove}
       >
         <rect height={4} fill={unselectedColor} x={0} y={10} width={width} />
         <rect
@@ -157,7 +159,7 @@ class Slider extends Component {
               onKeyDown={this.keyDown.bind(this, i)}
               transform={`translate(${this.props.scale(m)}, 0)`}
               key={`handle-${i}`}
-              style={{outline: 'none'}}
+              style={{ outline: "none" }}
             >
               <circle
                 style={handleStyle}
@@ -169,7 +171,7 @@ class Slider extends Component {
               />
               <circle
                 style={handleStyle}
-                onMouseDown={this.dragStart.bind(this, i)}
+                onPointerDown={this.dragStart.bind(this, i)}
                 r={9}
                 cx={0}
                 cy={12}
@@ -177,20 +179,18 @@ class Slider extends Component {
                 stroke="#ccc"
                 strokeWidth="1"
               />
-              {
-                (showLabels
-                  ? <text
-                      style={handleStyle}
-                      textAnchor="middle"
-                      x={0}
-                      y={36}
-                      fill="#666"
-                      fontSize={12}
-                    >
-                      {f(m)}
-                    </text>
-                  : null)
-              }
+              {showLabels ? (
+                <text
+                  style={handleStyle}
+                  textAnchor="middle"
+                  x={0}
+                  y={36}
+                  fill="#666"
+                  fontSize={12}
+                >
+                  {f(m)}
+                </text>
+              ) : null}
             </g>
           );
         })}
@@ -204,7 +204,7 @@ Slider.propTypes = {
     PropTypes.shape({
       x0: PropTypes.number,
       x: PropTypes.number,
-      y: PropTypes.number
+      y: PropTypes.number,
     })
   ).isRequired,
   selection: PropTypes.arrayOf(PropTypes.number).isRequired,
@@ -224,7 +224,9 @@ Slider.propTypes = {
   formatLabelFunction: PropTypes.func,
   sliderStyle: PropTypes.object,
   showLabels: PropTypes.bool,
-  labelStyle: PropTypes.object
+  labelStyle: PropTypes.object,
+  selectedColor: PropTypes.string,
+  unselectedColor: PropTypes.string,
 };
 
 Slider.defaultProps = {
@@ -232,10 +234,10 @@ Slider.defaultProps = {
     display: "block",
     paddingBottom: "8px",
     zIndex: 6,
-    overflow: "visible"
+    overflow: "visible",
   },
   keyboardStep: 1,
-  showLabels: true
+  showLabels: true,
 };
 
 export default Slider;

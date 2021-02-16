@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Motion, spring } from "react-motion";
+import { Motion, spring } from "@serprex/react-motion";
 
 class Histogram extends Component {
   selectBucket(bucket) {
@@ -14,11 +14,9 @@ class Histogram extends Component {
       histogramStyle,
       showOnDrag,
       selection,
-      histogramPadding,
       reset,
       selectedColor,
       unselectedColor,
-      selectBucket,
       scale,
       barBorderRadius,
       barStyle,
@@ -26,33 +24,35 @@ class Histogram extends Component {
       barPadding,
       width,
       max,
-      dragging
+      dragging,
     } = this.props;
 
     const selectionSorted = Array.from(selection).sort((a, b) => +a - +b);
     const showHistogramPredicate = showOnDrag
-      ? dragging ? true : false
+      ? dragging
+        ? true
+        : false
       : true;
     const h = showHistogramPredicate ? height : 0;
     const o = showHistogramPredicate ? 1 : 0;
 
     return (
       <Motion style={{ height: spring(h), opacity: spring(o) }}>
-        {s => {
+        {(s) => {
           return (
             <div
               style={Object.assign({}, s, {
                 zIndex: 0,
                 overflow: "hidden",
                 position: showOnDrag && "absolute",
-                bottom: showOnDrag && `calc(100% - ${padding}px)`
+                bottom: showOnDrag && `calc(100% - ${padding}px)`,
               })}
             >
               <svg
                 style={Object.assign(
                   {
                     display: "block",
-                    backgroundColor: "white"
+                    backgroundColor: "white",
                   },
                   histogramStyle
                 )}
@@ -101,15 +101,16 @@ class Histogram extends Component {
                       return (
                         <g
                           key={i}
-                          transform={`translate(${scale(bucket.x0) +
-                            barPadding / 2} 0)`}
+                          transform={`translate(${
+                            scale(bucket.x0) + barPadding / 2
+                          } 0)`}
                         >
                           <rect
                             fill={unselectedColor}
                             width={
                               scale(bucket.x) - scale(bucket.x0) - barPadding
                             }
-                            height={bucket.y / max * height}
+                            height={(bucket.y / max) * height}
                             rx={barBorderRadius}
                             ry={barBorderRadius}
                             x={0}
@@ -125,7 +126,7 @@ class Histogram extends Component {
                             width={
                               scale(bucket.x) - scale(bucket.x0) - barPadding
                             }
-                            height={bucket.y / max * height}
+                            height={(bucket.y / max) * height}
                             rx={barBorderRadius}
                             ry={barBorderRadius}
                             x={0}
@@ -149,7 +150,7 @@ Histogram.propTypes = {
     PropTypes.shape({
       x0: PropTypes.number,
       x: PropTypes.number,
-      y: PropTypes.number
+      y: PropTypes.number,
     })
   ).isRequired,
   selection: PropTypes.arrayOf(PropTypes.number).isRequired,
@@ -160,11 +161,20 @@ Histogram.propTypes = {
   height: PropTypes.number,
   showOnDrag: PropTypes.bool,
   reset: PropTypes.func,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  histogramStyle: PropTypes.object,
+  selectedColor: PropTypes.string,
+  unselectedColor: PropTypes.string,
+  scale: PropTypes.func,
+  barStyle: PropTypes.object,
+  padding: PropTypes.number,
+  barPadding: PropTypes.number,
+  max: PropTypes.number,
+  dragging: PropTypes.bool,
 };
 
 Histogram.defaultProps = {
-  histogramPadding: 1
+  histogramPadding: 1,
 };
 
 export default Histogram;
