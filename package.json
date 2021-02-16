@@ -4,6 +4,9 @@
   "main": "./lib/index.js",
   "author": "Finn Smith. Forked form Sam Hogg <sam@samhogg.com> (http://samhogg.com/)",
   "description": "D3 based histogram slider component for React",
+  "scripts": {
+    "build": "babel src --out-dir lib"
+  },
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
