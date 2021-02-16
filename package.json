@@ -1,6 +1,6 @@
 {
   "name": "@finnssmith/histoslider",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "main": "./lib/index.js",
   "author": "Finn Smith. Forked form Sam Hogg <sam@samhogg.com> (http://samhogg.com/)",
   "description": "D3 based histogram slider component for React",
