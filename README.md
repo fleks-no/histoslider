@@ -2,6 +2,16 @@
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/samhogg/histoslider.svg)](https://greenkeeper.io/)
 
+
+## finnssmith Fork
+
+A fork of https://github.com/samhogg/histoslider. 
+- Updates the `react-motion` dependency to be compatible with React 16 and 17,
+- Fixes the Histoslider for touch screens, where it was previously completely broken,
+- Removes unused files, scripts, imports, and props.
+
+## Original README
+
 A D3 based histogram slider component for React. Useful for exploring distributions of things within data visualisations.
 
 ## Usage
@@ -14,13 +24,9 @@ A D3 based histogram slider component for React. Useful for exploring distributi
 * `d3-format`
 * `d3-scale`
 
-Then, to install, either
+Then, to install,
 
-`npm install histoslider --save`
-
-or
-
-`yarn add histoslider`
+`yarn add @finnssmith/histoslider`
 
 Yay, glad we got that out of the way.
 
@@ -51,10 +57,4 @@ Yay, glad we got that out of the way.
   />
 ```
 
-*more docs to come*
-
-## Development
-
-`yarn start`
-
-Hack away :)
+Check PropTypes for more options.
