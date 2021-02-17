@@ -1,6 +1,6 @@
 {
   "name": "histoslider",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A slider component integrating a histogram, for React.",
   "main": "lib/index.js",
   "scripts": {
@@ -27,10 +27,8 @@
     "babel-preset-es2015": "^6.14.0",
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-0": "^6.5.0",
-    "react": "^15.3.1",
-    "react-dom": "^15.3.1",
-    "webpack": "^1.13.2",
-    "webpack-dev-server": "^1.15.1"
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0"
   },
   "dependencies": {
     "d3-array": "^0.8.0",
