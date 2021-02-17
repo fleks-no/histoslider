@@ -5,8 +5,10 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "standard src",
+    "start": "webpack-dev-server --content-base docs/ --inline --hot",
+    "build-docs": "webpack",
     "build": "babel ./src --out-dir ./lib --source-maps --plugins babel-plugin-add-module-exports",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build-docs && npm run build"
   },
   "keywords": [
     "react",
