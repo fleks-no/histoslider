@@ -3,7 +3,7 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/samhogg/histoslider.svg)](https://greenkeeper.io/)
 
 
-## finnssmith Fork
+## Fleks-no Fork
 
 A fork of https://github.com/samhogg/histoslider. 
 - Updates the `react-motion` dependency to be compatible with React 16 and 17,
