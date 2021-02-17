@@ -5,7 +5,7 @@ import centered from "@storybook/addon-centered";
 addDecorator(centered);
 
 setOptions({
-  name: "Histoslider"
+  name: "Histoslider",
 });
 
 configure(() => require("../src/stories"), module);
