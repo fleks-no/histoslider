@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../src/stories/stories.test.js"],"names":[],"mappings":";;AAAA;;;;;;AAEA","file":"stories.test.js","sourcesContent":["import initStoryshots from \"@storybook/addon-storyshots\";\n\ninitStoryshots();\n"]}

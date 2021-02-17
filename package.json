@@ -4,11 +4,8 @@
   "description": "A slider component integrating a histogram, for React.",
   "main": "lib/index.js",
   "scripts": {
-    "test": "standard src",
-    "start": "webpack-dev-server --content-base docs/ --inline --hot",
-    "build-docs": "webpack",
     "build": "babel ./src --out-dir ./lib --source-maps --plugins babel-plugin-add-module-exports",
-    "prepublish": "npm run build-docs && npm run build"
+    "prepublish": "npm run build"
   },
   "keywords": [
     "react",
@@ -32,13 +29,13 @@
     "babel-preset-stage-0": "^6.5.0",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
-    "standard": "^8.0.0",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.15.1"
   },
   "dependencies": {
     "d3-array": "^0.8.0",
     "d3-format": "^1.0.2",
-    "d3-scale": "^1.0.0"
+    "d3-scale": "^1.0.0",
+    "@serprex/react-motion": "^0.6.1"
   }
 }
