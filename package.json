@@ -1,6 +1,6 @@
 {
   "name": "histoslider",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A slider component integrating a histogram, for React.",
   "main": "lib/index.js",
   "scripts": {
