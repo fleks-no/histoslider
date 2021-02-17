@@ -5,7 +5,6 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "standard src",
-    "start": "webpack-dev-server --content-base docs/ --inline --hot",
     "build": "babel ./src --out-dir ./lib --source-maps --plugins babel-plugin-add-module-exports",
     "prepublish": "npm run build"
   },
