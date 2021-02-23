@@ -107,9 +107,10 @@ class Histogram extends Component {
                         >
                           <rect
                             fill={unselectedColor}
-                            width={
+                            width={Math.max(
+                              1,
                               scale(bucket.x) - scale(bucket.x0) - barPadding
-                            }
+                            )}
                             height={(bucket.y / max) * height}
                             rx={barBorderRadius}
                             ry={barBorderRadius}
@@ -123,9 +124,10 @@ class Histogram extends Component {
                               { opacity, cursor: "pointer" },
                               barStyle
                             )}
-                            width={
+                            width={Math.max(
+                              1,
                               scale(bucket.x) - scale(bucket.x0) - barPadding
-                            }
+                            )}
                             height={(bucket.y / max) * height}
                             rx={barBorderRadius}
                             ry={barBorderRadius}
