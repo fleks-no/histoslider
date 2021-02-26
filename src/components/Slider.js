@@ -58,7 +58,6 @@ class Slider extends Component {
   };
 
   dragEnd = (e) => {
-    console.log("dragEnd", e);
     e.stopPropagation();
     this.setState(
       {
@@ -102,7 +101,6 @@ class Slider extends Component {
   };
 
   mouseMove = (e) => {
-    console.log("mouseMove this.state.dragging", this.state.dragging);
     if (this.state.dragging) {
       let selection = [...this.props.selection];
       let pos = this.props.scale.invert(
@@ -152,7 +150,7 @@ class Slider extends Component {
     return (
       <svg
         style={{ ...sliderStyle, touchAction: "none" }}
-        height={height + 50}
+        height={height}
         width={width}
         onDoubleClick={reset}
         onPointerMove={this.mouseMove}
