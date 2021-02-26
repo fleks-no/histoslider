@@ -58,6 +58,7 @@ class Slider extends Component {
   };
 
   dragEnd = (e) => {
+    console.log("dragEnd", e);
     e.stopPropagation();
     this.setState(
       {
@@ -101,6 +102,7 @@ class Slider extends Component {
   };
 
   mouseMove = (e) => {
+    console.log("mouseMove this.state.dragging", this.state.dragging);
     if (this.state.dragging) {
       let selection = [...this.props.selection];
       let pos = this.props.scale.invert(
@@ -141,6 +143,7 @@ class Slider extends Component {
       unselectedColor,
       sliderStyle,
       showLabels,
+      circleRadius = 9,
     } = this.props;
     const selectionWidth = Math.abs(scale(selection[1]) - scale(selection[0]));
     const selectionSorted = Array.from(selection).sort((a, b) => +a - +b);
@@ -149,7 +152,7 @@ class Slider extends Component {
     return (
       <svg
         style={{ ...sliderStyle, touchAction: "none" }}
-        height={height}
+        height={height + 50}
         width={width}
         onDoubleClick={reset}
         onPointerMove={this.mouseMove}
@@ -183,7 +186,7 @@ class Slider extends Component {
               <circle
                 style={handleStyle}
                 onPointerDown={this.dragStart.bind(this, i)}
-                r={9}
+                r={circleRadius}
                 cx={0}
                 cy={12}
                 fill="white"
@@ -238,6 +241,7 @@ Slider.propTypes = {
   labelStyle: PropTypes.object,
   selectedColor: PropTypes.string,
   unselectedColor: PropTypes.string,
+  circleRadius: PropTypes.number,
 };
 
 Slider.defaultProps = {
