@@ -175,7 +175,7 @@ class Slider extends Component {
             >
               <circle
                 style={handleStyle}
-                r={10}
+                r={circleRadius + 1}
                 cx={0}
                 cy={12.5}
                 fill="#ddd"
