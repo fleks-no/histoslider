@@ -103,9 +103,19 @@ class Slider extends Component {
   mouseMove = (e) => {
     if (this.state.dragging) {
       let selection = [...this.props.selection];
-      selection[this.state.dragIndex] = this.props.scale.invert(
-        e.nativeEvent.offsetX
+      let pos = this.props.scale.invert(
+        e.clientX - this.svg.getBoundingClientRect().x
       );
+
+      if (this.state.dragIndex < 2) {
+        selection[this.state.dragIndex] = pos;
+      } else {
+        selection = [
+          pos - this.state.dragReference,
+          pos - this.state.dragReference + this.state.dragWindow,
+        ];
+      }
+
       this.props.onChange(selection);
     }
   };
@@ -143,6 +153,7 @@ class Slider extends Component {
         width={width}
         onDoubleClick={reset}
         onPointerMove={this.mouseMove}
+        ref={(e) => (this.svg = e)}
       >
         <rect height={4} fill={unselectedColor} x={0} y={10} width={width} />
         <rect
